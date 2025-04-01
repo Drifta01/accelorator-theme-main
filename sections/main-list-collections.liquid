@@ -4,26 +4,23 @@
   <h1>{{ section.settings.title | escape }}</h1>
   {%- paginate collections by section.settings.collections_per_page -%}
     <ol class="list-unstyled grid" role="list">
-      {%- for collection in collections -%}
-        <li>
-          <div class="card">
-            <div
-              class="media"
-              style="--width: {{ collection.featured_image.width }}; --height: {{ collection.featured_image.height }};"
-            >
-              {% if collection.featured_image != null %}
-                {{ collection.featured_image | image_url: width: collection.featured_image.width | image_tag }}
-              {% endif %}
-            </div>
-            <h2>
-              <a href="{{ collection.url }}">
-                {{ collection.title }}
-              </a>
-            </h2>
-            <p>{{- collection.description | strip_html | truncatewords: 12 -}}</p>
-          </div>
-        </li>
-      {%- endfor -%}
+     
+        {% for collection in collections  %}
+          <li>
+            <h5>Collection card</h5>        
+            <div class="card">
+             <div
+               class="media"
+               style="--width: {{ collection.image.width | default: 100 }}; --height: {{ collection.image.width | default: 100 }};"
+             >
+               {{ 'collection-1' | placeholder_svg_tag }}
+             </div>
+             <h2>
+               <a href="{{ collection.url }}">{{ collection.title }}</a>
+             </h2>
+           </div>
+         </li>
+          {% endfor %}
     </ol>
     {%- if paginate.pages > 1 -%}
       {%- render 'pagination', paginate: paginate -%}
